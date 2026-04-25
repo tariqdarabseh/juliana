@@ -1,0 +1,2322 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>كيتي لاند - متجر الأميرات</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ═══════════════════════════════════════
+   TOKENS & RESET
+═══════════════════════════════════════ */
+      :root {
+        --pink: #ff85a2;
+        --pink-deep: #e8547a;
+        --pink-light: #ffb3c6;
+        --pink-pale: #ffe4ed;
+        --cream: #fff8f2;
+        --white: #ffffff;
+        --pastel-red: #ff6b8a;
+        --blush: #ffd6e0;
+        --text-dark: #2e1020;
+        --text-mid: #7a4060;
+        --text-light: #b07090;
+        --sh: rgba(232, 84, 122, 0.12);
+        --sh-md: rgba(232, 84, 122, 0.2);
+        --r: 22px;
+        --r-sm: 14px;
+        --r-xs: 10px;
+        --font: "Cairo", sans-serif;
+        --nav-h: 60px;
+        --safe-bottom: env(safe-area-inset-bottom, 0px);
+      }
+
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+      html {
+        scroll-behavior: smooth;
+        font-size: 16px;
+      }
+      body {
+        font-family: var(--font);
+        background: var(--cream);
+        color: var(--text-dark);
+        direction: rtl;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+      a {
+        text-decoration: none;
+      }
+      button {
+        font-family: var(--font);
+        cursor: pointer;
+        border: none;
+        outline: none;
+      }
+      ul {
+        list-style: none;
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--blush);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--pink);
+        border-radius: 99px;
+      }
+
+      /* ═══════════════════════════════════════
+   UTILS
+═══════════════════════════════════════ */
+      .section-pad {
+        padding: 56px 18px;
+      }
+      .section-pad-sm {
+        padding: 40px 18px;
+      }
+
+      .sec-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--blush);
+        color: var(--pink-deep);
+        border-radius: 50px;
+        padding: 5px 16px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        margin-bottom: 10px;
+      }
+      .sec-title {
+        font-size: 1.55rem;
+        font-weight: 900;
+        line-height: 1.25;
+        color: var(--text-dark);
+        margin-bottom: 6px;
+      }
+      .sec-title span {
+        background: linear-gradient(
+          135deg,
+          var(--pink-deep),
+          var(--pastel-red)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .sec-sub {
+        font-size: 0.88rem;
+        color: var(--text-light);
+        font-weight: 500;
+      }
+      .sec-header {
+        margin-bottom: 28px;
+      }
+
+      .btn-full {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 15px 20px;
+        border-radius: 50px;
+        font-family: var(--font);
+        font-size: 1rem;
+        font-weight: 700;
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s;
+        -webkit-touch-callout: none;
+      }
+      .btn-full:active {
+        transform: scale(0.97);
+      }
+      .btn-pink {
+        background: linear-gradient(135deg, var(--pink), var(--pink-deep));
+        color: white;
+        box-shadow: 0 6px 20px var(--sh-md);
+      }
+      .btn-outline-pink {
+        background: white;
+        color: var(--pink-deep);
+        border: 2px solid var(--pink);
+      }
+      .btn-wa-green {
+        background: #25d366;
+        color: white;
+        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+      }
+
+      /* ═══════════════════════════════════════
+   NAVBAR
+═══════════════════════════════════════ */
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 200;
+        height: var(--nav-h);
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border-bottom: 1.5px solid var(--blush);
+        padding: 0 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 2px 16px var(--sh);
+      }
+
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .nav-logo-icon {
+        width: 38px;
+        height: 38px;
+        background: linear-gradient(135deg, var(--pink), var(--pink-deep));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        box-shadow: 0 3px 10px var(--sh-md);
+        flex-shrink: 0;
+      }
+      .nav-logo-text {
+        font-size: 1.2rem;
+        font-weight: 900;
+        background: linear-gradient(
+          135deg,
+          var(--pink-deep),
+          var(--pastel-red)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* Desktop links — hidden on mobile */
+      .nav-links {
+        display: none;
+        gap: 28px;
+      }
+      .nav-links a {
+        color: var(--text-mid);
+        font-weight: 600;
+        font-size: 0.92rem;
+        position: relative;
+        transition: color 0.2s;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        right: 0;
+        width: 0;
+        height: 2px;
+        background: var(--pink);
+        transition: 0.3s;
+      }
+      .nav-links a:hover {
+        color: var(--pink-deep);
+      }
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .btn-cart {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        background: var(--blush);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        transition: transform 0.15s;
+      }
+      .btn-cart:active {
+        transform: scale(0.9);
+      }
+      .cart-badge {
+        position: absolute;
+        top: -3px;
+        left: -3px;
+        background: var(--pink-deep);
+        color: white;
+        width: 17px;
+        height: 17px;
+        border-radius: 50%;
+        font-size: 0.6rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      }
+      .hamburger {
+        display: flex;
+        flex-direction: column;
+        gap: 4.5px;
+        padding: 7px;
+        border-radius: 8px;
+        background: transparent;
+        transition: 0.2s;
+      }
+      .hamburger span {
+        width: 22px;
+        height: 2px;
+        background: var(--pink-deep);
+        border-radius: 2px;
+        display: block;
+        transition: 0.3s;
+      }
+      .hamburger.open span:nth-child(1) {
+        transform: translateY(6.5px) rotate(45deg);
+      }
+      .hamburger.open span:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      .hamburger.open span:nth-child(3) {
+        transform: translateY(-6.5px) rotate(-45deg);
+      }
+
+      /* ═══════════════════════════════════════
+   DRAWER (MOBILE NAV)
+═══════════════════════════════════════ */
+      .drawer-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 300;
+        background: rgba(30, 10, 20, 0.45);
+        backdrop-filter: blur(4px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+      }
+      .drawer-overlay.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .drawer {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        z-index: 301;
+        width: min(300px, 85vw);
+        height: 100%;
+        background: white;
+        padding: 0;
+        transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: -8px 0 40px rgba(0, 0, 0, 0.12);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .drawer.open {
+        right: 0;
+      }
+
+      .drawer-head {
+        background: linear-gradient(135deg, var(--pink-pale), var(--blush));
+        padding: 20px 20px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .drawer-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .drawer-close {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        color: var(--text-mid);
+        transition: 0.15s;
+      }
+      .drawer-close:active {
+        transform: scale(0.9);
+      }
+
+      .drawer-body {
+        padding: 16px 0;
+        flex: 1;
+        overflow-y: auto;
+      }
+      .drawer-links li a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 24px;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        border-bottom: 1px solid #fff0f5;
+        transition: background 0.15s;
+      }
+      .drawer-links li a:active {
+        background: var(--pink-pale);
+      }
+      .drawer-links li a .di {
+        font-size: 1.2rem;
+      }
+      .drawer-footer {
+        padding: 20px;
+        border-top: 1px solid var(--blush);
+      }
+      .drawer-wa {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: #25d366;
+        color: white;
+        border-radius: 50px;
+        padding: 13px 20px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+        transition: 0.15s;
+      }
+      .drawer-wa:active {
+        transform: scale(0.97);
+      }
+
+      /* ═══════════════════════════════════════
+   HERO — MOBILE FIRST
+═══════════════════════════════════════ */
+      .hero {
+        background: linear-gradient(180deg, #fff0f6 0%, var(--cream) 100%);
+        padding: 24px 18px 36px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: -60px;
+        left: -60px;
+        width: 260px;
+        height: 260px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 179, 198, 0.25) 0%,
+          transparent 70%
+        );
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      /* Hero visual — compact banner */
+      .hero-visual-wrap {
+        position: relative;
+        background: linear-gradient(135deg, #ffe4ed, #ffb3c6 60%, #ff85a2);
+        border-radius: var(--r);
+        height: 220px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        margin-bottom: 24px;
+        box-shadow: 0 8px 30px var(--sh-md);
+      }
+      .hero-main-emoji {
+        font-size: 7rem;
+        line-height: 1;
+        animation: floatHero 4s ease-in-out infinite;
+        filter: drop-shadow(0 10px 20px rgba(232, 84, 122, 0.3));
+      }
+      @keyframes floatHero {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-2deg);
+        }
+        50% {
+          transform: translateY(-12px) rotate(2deg);
+        }
+      }
+
+      /* Floating mini-cards on hero */
+      .hero-fc {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(8px);
+        border-radius: 12px;
+        padding: 8px 12px;
+        box-shadow: 0 4px 16px rgba(232, 84, 122, 0.18);
+        border: 1.5px solid rgba(255, 179, 198, 0.35);
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: var(--text-mid);
+        animation: fcFloat 5s ease-in-out infinite;
+        white-space: nowrap;
+      }
+      .hero-fc .em {
+        font-size: 1.1rem;
+        display: block;
+        margin-bottom: 1px;
+      }
+      .hero-fc .pr {
+        color: var(--pink-deep);
+        font-size: 0.85rem;
+      }
+      .hfc1 {
+        top: 14px;
+        right: 14px;
+        animation-delay: 0s;
+      }
+      .hfc2 {
+        bottom: 14px;
+        right: 14px;
+        animation-delay: 1.2s;
+      }
+      .hfc3 {
+        bottom: 14px;
+        left: 14px;
+        animation-delay: 0.6s;
+      }
+      .hfc4 {
+        top: 14px;
+        left: 14px;
+        animation-delay: 1.8s;
+      }
+      @keyframes fcFloat {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-6px);
+        }
+      }
+
+      /* Hero text */
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--blush);
+        color: var(--pink-deep);
+        border-radius: 50px;
+        padding: 6px 14px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+      .hero-title {
+        font-size: 1.75rem;
+        font-weight: 900;
+        line-height: 1.25;
+        color: var(--text-dark);
+        margin-bottom: 10px;
+      }
+      .hero-title .hl {
+        background: linear-gradient(
+          135deg,
+          var(--pink-deep),
+          var(--pastel-red)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hero-sub {
+        font-size: 0.9rem;
+        color: var(--text-mid);
+        line-height: 1.75;
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+      .hero-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+
+      /* Hero stats */
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .stat-card {
+        background: white;
+        border-radius: var(--r-sm);
+        padding: 12px 8px;
+        text-align: center;
+        box-shadow: 0 3px 12px var(--sh);
+      }
+      .stat-num {
+        font-size: 1.25rem;
+        font-weight: 900;
+        color: var(--pink-deep);
+        display: block;
+        line-height: 1;
+      }
+      .stat-label {
+        font-size: 0.68rem;
+        color: var(--text-light);
+        font-weight: 600;
+        margin-top: 3px;
+        display: block;
+      }
+
+      /* ═══════════════════════════════════════
+   TRUST STRIP
+═══════════════════════════════════════ */
+      .trust-strip {
+        background: linear-gradient(
+          135deg,
+          var(--pink-deep),
+          var(--pastel-red)
+        );
+        padding: 14px 18px;
+        display: flex;
+        overflow-x: auto;
+        gap: 20px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .trust-strip::-webkit-scrollbar {
+        display: none;
+      }
+      .trust-item {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        flex-shrink: 0;
+        color: white;
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+      .trust-item .ti {
+        font-size: 1rem;
+      }
+
+      /* ═══════════════════════════════════════
+   CATEGORIES — HORIZONTAL SCROLL
+═══════════════════════════════════════ */
+      .categories {
+        padding: 40px 0;
+      }
+      .categories .sec-header {
+        padding: 0 18px;
+      }
+
+      .cat-scroll {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        padding: 4px 18px 12px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .cat-scroll::-webkit-scrollbar {
+        display: none;
+      }
+
+      .cat-chip {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+        width: 90px;
+        background: white;
+        border-radius: var(--r-sm);
+        padding: 14px 8px 12px;
+        box-shadow: 0 3px 12px var(--sh);
+        border: 2px solid transparent;
+        transition: all 0.2s;
+        cursor: pointer;
+      }
+      .cat-chip:active {
+        transform: scale(0.95);
+      }
+      .cat-chip.active,
+      .cat-chip:hover {
+        border-color: var(--pink);
+        background: var(--pink-pale);
+      }
+      .cat-chip .ce {
+        font-size: 1.8rem;
+        line-height: 1;
+      }
+      .cat-chip .cn {
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        text-align: center;
+      }
+      .cat-chip .cc {
+        font-size: 0.64rem;
+        color: var(--text-light);
+      }
+
+      /* Pills row */
+      .pills-row {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 18px 4px;
+        margin-bottom: 20px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .pills-row::-webkit-scrollbar {
+        display: none;
+      }
+      .pill {
+        flex-shrink: 0;
+        padding: 7px 18px;
+        border-radius: 50px;
+        border: 1.5px solid var(--blush);
+        background: white;
+        font-family: var(--font);
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--text-mid);
+        transition: all 0.2s;
+        cursor: pointer;
+      }
+      .pill:active {
+        transform: scale(0.95);
+      }
+      .pill.active {
+        background: linear-gradient(135deg, var(--pink), var(--pink-deep));
+        color: white;
+        border-color: transparent;
+        box-shadow: 0 4px 14px var(--sh-md);
+      }
+
+      /* ═══════════════════════════════════════
+   PRODUCTS — 2 COLUMN GRID
+═══════════════════════════════════════ */
+      .products {
+        padding: 40px 18px;
+        background: var(--pink-pale);
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+
+      .product-card {
+        background: white;
+        border-radius: var(--r);
+        overflow: hidden;
+        box-shadow: 0 3px 14px var(--sh);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        position: relative;
+      }
+      .product-card:active {
+        transform: scale(0.98);
+      }
+
+      .product-img-wrap {
+        position: relative;
+        height: 160px;
+        background: linear-gradient(135deg, var(--pink-pale), var(--blush));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        overflow: hidden;
+      }
+      .product-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .product-badge {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: linear-gradient(135deg, var(--pink), var(--pink-deep));
+        color: white;
+        padding: 3px 10px;
+        border-radius: 50px;
+        font-size: 0.62rem;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .product-badge.new {
+        background: var(--pastel-red);
+      }
+      .product-badge.sale {
+        background: #ff6b8a;
+      }
+      .wishlist-btn {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.95rem;
+        transition: transform 0.15s;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .wishlist-btn:active {
+        transform: scale(1.2);
+      }
+
+      .product-info {
+        padding: 12px;
+      }
+      .product-name {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 5px;
+        line-height: 1.35;
+      }
+      .product-rating {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-bottom: 10px;
+      }
+      .stars {
+        font-size: 0.72rem;
+        color: #ffb800;
+      }
+      .rating-txt {
+        font-size: 0.68rem;
+        color: var(--text-light);
+        font-weight: 600;
+      }
+
+      .product-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      .price-wrap {
+        flex-shrink: 0;
+      }
+      .product-price {
+        font-size: 1rem;
+        font-weight: 900;
+        color: var(--pink-deep);
+        display: block;
+      }
+      .product-old {
+        font-size: 0.68rem;
+        color: var(--text-light);
+        text-decoration: line-through;
+      }
+
+      .btn-add-sm {
+        background: linear-gradient(135deg, var(--pink), var(--pink-deep));
+        color: white;
+        border-radius: 50px;
+        padding: 7px 12px;
+        font-family: var(--font);
+        font-size: 0.72rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        transition: all 0.15s;
+        white-space: nowrap;
+        box-shadow: 0 3px 10px var(--sh-md);
+      }
+      .btn-add-sm:active {
+        transform: scale(0.94);
+      }
+
+      /* ═══════════════════════════════════════
+   WHY US
+═══════════════════════════════════════ */
+      .why-us {
+        padding: 40px 18px;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .feature-card {
+        background: white;
+        border-radius: var(--r);
+        padding: 22px 16px;
+        text-align: center;
+        box-shadow: 0 3px 14px var(--sh);
+        transition: transform 0.2s;
+      }
+      .feature-card:active {
+        transform: scale(0.97);
+      }
+      .feature-icon {
+        font-size: 2rem;
+        display: block;
+        margin-bottom: 10px;
+      }
+      .feature-title {
+        font-size: 0.88rem;
+        font-weight: 800;
+        color: var(--text-dark);
+        margin-bottom: 6px;
+      }
+      .feature-text {
+        font-size: 0.78rem;
+        color: var(--text-light);
+        line-height: 1.65;
+      }
+
+      /* ═══════════════════════════════════════
+   REVIEWS — SWIPE CAROUSEL
+═══════════════════════════════════════ */
+      .reviews {
+        padding: 40px 0;
+        background: linear-gradient(180deg, #fff5f8, var(--cream));
+      }
+      .reviews .sec-header {
+        padding: 0 18px;
+      }
+
+      .reviews-carousel {
+        display: flex;
+        gap: 14px;
+        overflow-x: auto;
+        padding: 4px 18px 16px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        scroll-snap-type: x mandatory;
+      }
+      .reviews-carousel::-webkit-scrollbar {
+        display: none;
+      }
+
+      .review-card {
+        min-width: calc(100vw - 56px);
+        max-width: 340px;
+        background: white;
+        border-radius: var(--r);
+        padding: 20px;
+        flex-shrink: 0;
+        box-shadow: 0 4px 18px var(--sh);
+        scroll-snap-align: start;
+        border-top: 3px solid var(--pink-light);
+      }
+      .review-top {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+      .reviewer-avatar {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--pink-pale), var(--blush));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        flex-shrink: 0;
+      }
+      .reviewer-name {
+        font-size: 0.92rem;
+        font-weight: 800;
+        color: var(--text-dark);
+      }
+      .reviewer-date {
+        font-size: 0.72rem;
+        color: var(--text-light);
+        margin-top: 2px;
+      }
+      .review-stars {
+        font-size: 0.9rem;
+        color: #ffb800;
+        margin-bottom: 10px;
+      }
+      .review-text {
+        font-size: 0.85rem;
+        color: var(--text-mid);
+        line-height: 1.75;
+      }
+      .review-product {
+        display: inline-block;
+        margin-top: 12px;
+        background: var(--blush);
+        color: var(--pink-deep);
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-size: 0.72rem;
+        font-weight: 700;
+      }
+
+      /* Carousel dots */
+      .carousel-dots {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        padding-top: 4px;
+      }
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--pink-light);
+        transition: 0.3s;
+      }
+      .dot.active {
+        background: var(--pink-deep);
+        width: 18px;
+        border-radius: 50px;
+      }
+
+      /* ═══════════════════════════════════════
+   GALLERY — 2 COL INSTAGRAM GRID
+═══════════════════════════════════════ */
+      .gallery {
+        padding: 40px 18px;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      .gallery-item {
+        border-radius: var(--r-xs);
+        aspect-ratio: 1/1;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        cursor: pointer;
+        background: linear-gradient(135deg, var(--pink-pale), var(--blush));
+        transition: transform 0.2s;
+      }
+      .gallery-item:active {
+        transform: scale(0.97);
+      }
+      .gallery-item:first-child {
+        grid-row: span 2;
+        font-size: 3.5rem;
+      }
+      .gallery-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(232, 84, 122, 0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 0;
+        transition: 0.25s;
+      }
+      .gallery-item:hover .gallery-overlay,
+      .gallery-item:active .gallery-overlay {
+        background: rgba(232, 84, 122, 0.35);
+        font-size: 1.5rem;
+      }
+      .ig-tag {
+        position: absolute;
+        bottom: 6px;
+        right: 6px;
+        background: rgba(255, 255, 255, 0.88);
+        color: var(--pink-deep);
+        border-radius: 50px;
+        padding: 2px 8px;
+        font-size: 0.6rem;
+        font-weight: 700;
+      }
+
+      /* ═══════════════════════════════════════
+   CTA SECTION
+═══════════════════════════════════════ */
+      .cta-section {
+        margin: 0 18px 56px;
+        border-radius: var(--r);
+        background: linear-gradient(
+          145deg,
+          var(--pink),
+          var(--pink-deep) 55%,
+          var(--pastel-red)
+        );
+        padding: 40px 24px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .cta-section::before {
+        content: "🎀";
+        position: absolute;
+        top: -16px;
+        right: -10px;
+        font-size: 5rem;
+        opacity: 0.12;
+      }
+      .cta-section::after {
+        content: "🌸";
+        position: absolute;
+        bottom: -16px;
+        left: -10px;
+        font-size: 5rem;
+        opacity: 0.12;
+      }
+      .cta-title {
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: white;
+        margin-bottom: 10px;
+        line-height: 1.3;
+      }
+      .cta-sub {
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 0.88rem;
+        margin-bottom: 24px;
+        line-height: 1.65;
+      }
+      .cta-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .btn-white {
+        background: white;
+        color: var(--pink-deep);
+        border-radius: 50px;
+        padding: 13px 20px;
+        font-family: var(--font);
+        font-size: 0.95rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        transition: 0.15s;
+      }
+      .btn-white:active {
+        transform: scale(0.97);
+      }
+
+      .btn-wa {
+        background: #25d366;
+        color: white;
+        border-radius: 50px;
+        padding: 13px 20px;
+        font-family: var(--font);
+        font-size: 0.95rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+        transition: 0.15s;
+      }
+      .btn-wa:active {
+        transform: scale(0.97);
+      }
+
+      /* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+      footer {
+        background: var(--text-dark);
+        color: rgba(255, 255, 255, 0.75);
+        padding: 40px 18px 0;
+      }
+      .footer-brand {
+        margin-bottom: 28px;
+      }
+      .footer-brand p {
+        font-size: 0.82rem;
+        line-height: 1.75;
+        margin-top: 12px;
+        opacity: 0.65;
+      }
+      .footer-socials {
+        display: flex;
+        gap: 10px;
+        margin-top: 16px;
+      }
+      .social-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        transition: 0.15s;
+      }
+      .social-btn:active {
+        background: var(--pink);
+      }
+
+      .footer-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 28px;
+      }
+      .footer-col h4 {
+        font-size: 0.9rem;
+        font-weight: 800;
+        color: white;
+        margin-bottom: 12px;
+      }
+      .footer-col li {
+        margin-bottom: 8px;
+      }
+      .footer-col a {
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 0.82rem;
+        transition: 0.2s;
+      }
+      .footer-col a:hover {
+        color: var(--pink-light);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 16px 0 calc(16px + var(--safe-bottom));
+        text-align: center;
+        font-size: 0.78rem;
+        opacity: 0.4;
+      }
+
+      /* ═══════════════════════════════════════
+   FLOATING WHATSAPP
+═══════════════════════════════════════ */
+      .wa-float {
+        position: fixed;
+        bottom: calc(24px + var(--safe-bottom));
+        left: 20px;
+        z-index: 150;
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        background: #25d366;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45);
+        animation: waPulse 2.5s infinite;
+        transition: transform 0.15s;
+      }
+      .wa-float:active {
+        transform: scale(0.92);
+        animation: none;
+      }
+      @keyframes waPulse {
+        0%,
+        100% {
+          box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45);
+        }
+        50% {
+          box-shadow:
+            0 6px 24px rgba(37, 211, 102, 0.45),
+            0 0 0 12px rgba(37, 211, 102, 0.12);
+        }
+      }
+      .wa-label {
+        position: absolute;
+        right: calc(100% + 10px);
+        top: 50%;
+        transform: translateY(-50%);
+        background: white;
+        color: var(--text-dark);
+        padding: 6px 14px;
+        border-radius: 50px;
+        font-family: var(--font);
+        font-size: 0.75rem;
+        font-weight: 700;
+        white-space: nowrap;
+        box-shadow: 0 3px 14px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.2s;
+      }
+      .wa-float:hover .wa-label {
+        opacity: 1;
+      }
+
+      /* ═══════════════════════════════════════
+   REVEAL ANIMATIONS
+═══════════════════════════════════════ */
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.55s ease,
+          transform 0.55s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .s1 {
+        transition-delay: 0.05s;
+      }
+      .s2 {
+        transition-delay: 0.1s;
+      }
+      .s3 {
+        transition-delay: 0.15s;
+      }
+      .s4 {
+        transition-delay: 0.2s;
+      }
+      .s5 {
+        transition-delay: 0.25s;
+      }
+      .s6 {
+        transition-delay: 0.3s;
+      }
+      .s7 {
+        transition-delay: 0.35s;
+      }
+      .s8 {
+        transition-delay: 0.4s;
+      }
+
+      /* ═══════════════════════════════════════
+   DESKTOP ENHANCEMENTS (min 768px)
+═══════════════════════════════════════ */
+      @media (min-width: 768px) {
+        :root {
+          --nav-h: 68px;
+        }
+        nav {
+          padding: 0 5%;
+        }
+        .hamburger {
+          display: none;
+        }
+        .nav-links {
+          display: flex;
+        }
+
+        .hero {
+          padding: 48px 5% 56px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 40px;
+          align-items: center;
+        }
+        .hero::before {
+          width: 500px;
+          height: 500px;
+        }
+        .hero-visual-wrap {
+          height: 380px;
+          margin-bottom: 0;
+          order: 2;
+        }
+        .hero-main-emoji {
+          font-size: 11rem;
+        }
+        .hero-content {
+          order: 1;
+        }
+        .hero-title {
+          font-size: 2.8rem;
+        }
+        .hero-sub {
+          font-size: 1rem;
+        }
+        .hero-actions {
+          flex-direction: row;
+        }
+        .btn-full {
+          width: auto;
+          padding: 13px 28px;
+        }
+
+        .features-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        .product-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
+        }
+        .product-img-wrap {
+          height: 200px;
+        }
+        .gallery-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        .gallery-item:first-child {
+          font-size: 5rem;
+        }
+
+        .sec-title {
+          font-size: 2rem;
+        }
+        .cta-section {
+          margin: 0 5% 72px;
+          padding: 60px 48px;
+        }
+        .cta-title {
+          font-size: 2rem;
+        }
+        .cta-actions {
+          flex-direction: row;
+          justify-content: center;
+        }
+        .btn-white,
+        .btn-wa {
+          width: auto;
+          padding: 14px 32px;
+        }
+        .footer-cols {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .section-pad {
+          padding: 72px 5%;
+        }
+        .products {
+          padding: 56px 5%;
+        }
+        .why-us {
+          padding: 56px 5%;
+        }
+        .gallery {
+          padding: 56px 5%;
+        }
+        .categories {
+          padding: 56px 0;
+        }
+        .categories .sec-header {
+          padding: 0 5%;
+        }
+        .cat-scroll {
+          padding: 4px 5% 12px;
+        }
+        .pills-row {
+          padding: 0 5% 4px;
+        }
+        .reviews {
+          padding: 56px 0;
+        }
+        .reviews .sec-header {
+          padding: 0 5%;
+        }
+        .reviews-carousel {
+          padding: 4px 5% 16px;
+        }
+        .review-card {
+          min-width: 320px;
+        }
+        .footer-cols {
+          gap: 32px;
+        }
+        footer {
+          padding: 56px 5% 0;
+        }
+      }
+
+      @media (min-width: 1100px) {
+        .product-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        .hero-title {
+          font-size: 3.4rem;
+        }
+        .hero-visual-wrap {
+          height: 450px;
+        }
+        .hero-main-emoji {
+          font-size: 13rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ══ FLOATING WHATSAPP ══ -->
+    <a
+      href="https://wa.me/962790000000"
+      class="wa-float"
+      target="_blank"
+      rel="noopener"
+    >
+      💬
+      <span class="wa-label">اطلبي الآن 🎀</span>
+    </a>
+
+    <!-- ══ DRAWER OVERLAY ══ -->
+    <div class="drawer-overlay" id="overlay" onclick="closeDrawer()"></div>
+
+    <!-- ══ DRAWER ══ -->
+    <div class="drawer" id="drawer">
+      <div class="drawer-head">
+        <div class="drawer-logo">
+          <div class="nav-logo-icon">🎀</div>
+          <span class="nav-logo-text">كيتي لاند</span>
+        </div>
+        <button class="drawer-close" onclick="closeDrawer()">✕</button>
+      </div>
+      <div class="drawer-body">
+        <ul class="drawer-links">
+          <li>
+            <a href="#categories" onclick="closeDrawer()"
+              ><span class="di">🏷️</span> الفئات</a
+            >
+          </li>
+          <li>
+            <a href="#products" onclick="closeDrawer()"
+              ><span class="di">🛍️</span> المنتجات</a
+            >
+          </li>
+          <li>
+            <a href="#why" onclick="closeDrawer()"
+              ><span class="di">💖</span> لماذا نحن</a
+            >
+          </li>
+          <li>
+            <a href="#reviews" onclick="closeDrawer()"
+              ><span class="di">⭐</span> التقييمات</a
+            >
+          </li>
+          <li>
+            <a href="#gallery" onclick="closeDrawer()"
+              ><span class="di">📸</span> معرض الصور</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="drawer-footer">
+        <a
+          href="https://wa.me/962790000000"
+          class="drawer-wa"
+          target="_blank"
+          rel="noopener"
+        >
+          💬 اطلبي عبر واتساب
+        </a>
+      </div>
+    </div>
+
+    <!-- ══ NAVBAR ══ -->
+    <nav>
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-icon">🎀</div>
+        <span class="nav-logo-text">كيتي لاند</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#categories">الفئات</a></li>
+        <li><a href="#products">المنتجات</a></li>
+        <li><a href="#why">لماذا نحن</a></li>
+        <li><a href="#reviews">التقييمات</a></li>
+        <li><a href="#gallery">معرض الصور</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <button class="btn-cart" id="cartBtn" onclick="cartBounce()">
+          🛍️
+          <span class="cart-badge" id="cartBadge">3</span>
+        </button>
+        <button class="hamburger" id="ham" onclick="toggleDrawer()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- ══ HERO ══ -->
+    <section class="hero">
+      <!-- Visual -->
+      <div class="hero-visual-wrap reveal">
+        <div class="hero-fc hfc1">
+          <span class="em">👜</span>
+          <span>حقيبة كيتي</span>
+          <span class="pr">٤٥ د.أ</span>
+        </div>
+        <div class="hero-fc hfc2">
+          <span class="em">🔥</span>
+          <span>الأكثر مبيعاً</span>
+        </div>
+        <div class="hero-fc hfc3">
+          <span class="em">🎀</span>
+          <span>جديد!</span>
+        </div>
+        <div class="hero-fc hfc4">
+          <span class="em">⭐</span>
+          <span>٤.٩ تقييم</span>
+        </div>
+        <div class="">
+          <img
+            src="https://i.imgur.com/LiIgBy5.jpeg"
+            alt="بوكس هدية كيتي"
+            class="product-img"
+          />
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="hero-content">
+        <div class="hero-badge reveal">✨ مجموعة صيف ٢٠٢٥ وصلت!</div>
+        <h1 class="hero-title reveal s1">
+          عالمك الوردي<br />
+          <span class="hl">بكل تفصيلة حلوة!</span>
+        </h1>
+        <p class="hero-sub reveal s2">
+          بيجامات، حقائب، إكسسوارات ودمى هيلو كيتي الأصيلة.<br />توصيل سريع لكل
+          الأردن 💕
+        </p>
+        <div class="hero-actions reveal s3">
+          <a href="#products" class="btn-full btn-pink">🛍️ تسوّقي الآن</a>
+          <a
+            href="https://wa.me/962790000000"
+            class="btn-full btn-outline-pink"
+            target="_blank"
+            >💬 اطلبي عبر واتساب</a
+          >
+        </div>
+        <div class="hero-stats reveal s4">
+          <div class="stat-card">
+            <span class="stat-num">+٥٠٠٠</span>
+            <span class="stat-label">عميلة سعيدة</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">+٣٠٠</span>
+            <span class="stat-label">منتج أصيل</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">٤.٩⭐</span>
+            <span class="stat-label">تقييم المتجر</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ TRUST STRIP ══ -->
+    <div class="trust-strip">
+      <div class="trust-item">
+        <span class="ti">🚚</span> توصيل سريع ١-٣ أيام
+      </div>
+      <div class="trust-item"><span class="ti">✅</span> جودة مضمونة ١٠٠٪</div>
+      <div class="trust-item"><span class="ti">🎁</span> تغليف هدايا مجاني</div>
+      <div class="trust-item">
+        <span class="ti">🔄</span> استرجاع خلال ٧ أيام
+      </div>
+      <div class="trust-item">
+        <span class="ti">💬</span> دعم على مدار الساعة
+      </div>
+    </div>
+
+    <!-- ══ CATEGORIES ══ -->
+    <section class="categories" id="categories">
+      <div class="sec-header reveal">
+        <div class="sec-badge">🏷️ تسوّقي حسب الفئة</div>
+        <h2 class="sec-title">اختاري <span>ما يناسبك</span></h2>
+      </div>
+
+      <!-- Horizontal chips -->
+      <div class="cat-scroll">
+        <div class="cat-chip active" onclick="filterCat(this)">
+          <span class="ce">🌙</span>
+          <span class="cn">البيجامات</span>
+          <span class="cc">٤٨ منتج</span>
+        </div>
+        <div class="cat-chip" onclick="filterCat(this)">
+          <span class="ce">👜</span>
+          <span class="cn">الحقائب</span>
+          <span class="cc">٦٢ منتج</span>
+        </div>
+        <div class="cat-chip" onclick="filterCat(this)">
+          <span class="ce">💎</span>
+          <span class="cn">إكسسوارات</span>
+          <span class="cc">٩٠ منتج</span>
+        </div>
+        <div class="cat-chip" onclick="filterCat(this)">
+          <span class="ce">🐻</span>
+          <span class="cn">الدمى</span>
+          <span class="cc">٣٥ منتج</span>
+        </div>
+        <div class="cat-chip" onclick="filterCat(this)">
+          <span class="ce">🎁</span>
+          <span class="cn">الهدايا</span>
+          <span class="cc">٧٥ منتج</span>
+        </div>
+        <div class="cat-chip" onclick="filterCat(this)">
+          <span class="ce">☕</span>
+          <span class="cn">أدوات منزل</span>
+          <span class="cc">٢٨ منتج</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ PRODUCTS ══ -->
+    <section class="products" id="products">
+      <div class="sec-header reveal">
+        <div class="sec-badge">⭐ الأكثر مبيعاً</div>
+        <h2 class="sec-title">منتجاتنا <span>المميزة</span></h2>
+        <p class="sec-sub">مجموعة مختارة بعناية لكِ يا أميرة</p>
+      </div>
+
+      <!-- Filter pills -->
+      <div class="pills-row">
+        <button class="pill active" onclick="filterPill(this)">الكل</button>
+        <button class="pill" onclick="filterPill(this)">بيجامات</button>
+        <button class="pill" onclick="filterPill(this)">حقائب</button>
+        <button class="pill" onclick="filterPill(this)">إكسسوارات</button>
+        <button class="pill" onclick="filterPill(this)">دمى</button>
+        <button class="pill" onclick="filterPill(this)">هدايا</button>
+      </div>
+
+      <div class="product-grid">
+        <!-- Card 1 -->
+        <div class="product-card reveal s1">
+          <div
+            class="product-img-wrap"
+            style="background: linear-gradient(135deg, #ffe4ed, #ffb3c6)"
+          >
+            <img
+              src="https://i.imgur.com/LiIgBy5.jpeg"
+              alt="بوكس هدية كيتي"
+              class="product-img"
+            />
+            <div class="product-badge">الأكثر مبيعاً</div>
+            <button class="wishlist-btn" onclick="toggleWish(this)">🤍</button>
+          </div>
+          <div class="product-info">
+            <p class="product-name">بيجاما هيلو كيتي الوردية</p>
+            <div class="product-rating">
+              <span class="stars">⭐⭐⭐⭐⭐</span
+              ><span class="rating-txt">(١٢٤)</span>
+            </div>
+            <div class="product-footer">
+              <div class="price-wrap">
+                <span class="product-price">٣٥ د.أ</span>
+                <span class="product-old">٤٥ د.أ</span>
+              </div>
+              <button class="btn-add-sm" onclick="addToCart()">+ سلة</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="product-card reveal s2">
+          <div
+            class="product-img-wrap"
+            style="background: linear-gradient(135deg, #fff0f8, #ffd6e0)"
+          >
+            <img
+              src="https://i.imgur.com/6r6Saue.jpeg"
+              alt="بوكس هدية كيتي"
+              class="product-img"
+            />
+            <div class="product-badge new">جديد</div>
+            <button class="wishlist-btn" onclick="toggleWish(this)">🤍</button>
+          </div>
+          <div class="product-info">
+            <p class="product-name">حقيبة كتف كيتي الفضية</p>
+            <div class="product-rating">
+              <span class="stars">⭐⭐⭐⭐⭐</span
+              ><span class="rating-txt">(٨٧)</span>
+            </div>
+            <div class="product-footer">
+              <div class="price-wrap">
+                <span class="product-price">٤٥ د.أ</span>
+              </div>
+              <button class="btn-add-sm" onclick="addToCart()">+ سلة</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="product-card reveal s3">
+          <div
+            class="product-img-wrap"
+            style="background: linear-gradient(135deg, #ffe4ed, #fff0f8)"
+          >
+            <img
+              src="https://i.imgur.com/xwdd54u.jpeg"
+              alt="بوكس هدية كيتي"
+              class="product-img"
+            />
+            <div class="product-badge sale">خصم ٢٠٪</div>
+            <button class="wishlist-btn" onclick="toggleWish(this)">🤍</button>
+          </div>
+          <div class="product-info">
+            <p class="product-name">دمية كيتي البلوش الكبيرة</p>
+            <div class="product-rating">
+              <span class="stars">⭐⭐⭐⭐⭐</span
+              ><span class="rating-txt">(٢٠٣)</span>
+            </div>
+            <div class="product-footer">
+              <div class="price-wrap">
+                <span class="product-price">٢٨ د.أ</span>
+                <span class="product-old">٣٥ د.أ</span>
+              </div>
+              <button class="btn-add-sm" onclick="addToCart()">+ سلة</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="product-card reveal s4">
+          <div
+            class="product-img-wrap"
+            style="background: linear-gradient(135deg, #ffd6e0, #ffb3c6)"
+          >
+            <img
+              src="https://i.imgur.com/K8X9ldX.jpeg"
+              alt="بوكس هدية كيتي"
+              class="product-img"
+            />
+            <button class="wishlist-btn" onclick="toggleWish(this)">🤍</button>
+          </div>
+          <div class="product-info">
+            <p class="product-name">طقم إكسسوارات الشعر</p>
+            <div class="product-rating">
+              <span class="stars">⭐⭐⭐⭐</span
+              ><span class="rating-txt">(٥٦)</span>
+            </div>
+            <div class="product-footer">
+              <div class="price-wrap">
+                <span class="product-price">١٢ د.أ</span>
+              </div>
+              <button class="btn-add-sm" onclick="addToCart()">+ سلة</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="product-card reveal s5">
+          <div
+            class="product-img-wrap"
+            style="background: linear-gradient(135deg, #fff8f0, #ffe4ed)"
+          >
+            <img
+              src="https://i.imgur.com/hXyxZOq.jpeg"
+              alt="بوكس هدية كيتي"
+              class="product-img"
+            />
+            <div class="product-badge">هدية مثالية</div>
+            <button class="wishlist-btn" onclick="toggleWish(this)">🤍</button>
+          </div>
+          <div class="product-info">
+            <p class="product-name">بوكس هدية كيتي الفاخر</p>
+            <div class="product-rating">
+              <span class="stars">⭐⭐⭐⭐⭐</span
+              ><span class="rating-txt">(١٤١)</span>
+            </div>
+            <div class="product-footer">
+              <div class="price-wrap">
+                <span class="product-price">٦٥ د.أ</span>
+                <span class="product-old">٨٠ د.أ</span>
+              </div>
+              <button class="btn-add-sm" onclick="addToCart()">+ سلة</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="product-card reveal s6">
+          <div
+            class="product-img-wrap"
+            style="background: linear-gradient(135deg, #ffe4ed, #ffd6e0)"
+          >
+            <img
+              src="https://i.imgur.com/8R6kzEl.jpeg"
+              alt="بوكس هدية كيتي"
+              class="product-img"
+            />
+            <button class="wishlist-btn" onclick="toggleWish(this)">🤍</button>
+          </div>
+          <div class="product-info">
+            <p class="product-name">مج كيتي الوردي الكيوت</p>
+            <div class="product-rating">
+              <span class="stars">⭐⭐⭐⭐</span
+              ><span class="rating-txt">(٧٢)</span>
+            </div>
+            <div class="product-footer">
+              <div class="price-wrap">
+                <span class="product-price">١٨ د.أ</span>
+              </div>
+              <button class="btn-add-sm" onclick="addToCart()">+ سلة</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="product-card reveal s7">
+          <div
+            class="product-img-wrap"
+            style="background: linear-gradient(135deg, #fff0f8, #ffe4ed)"
+          >
+            <img
+              src="https://i.imgur.com/swrfPdc.jpeg"
+              alt="بوكس هدية كيتي"
+              class="product-img"
+            />
+            <div class="product-badge new">جديد</div>
+            <button class="wishlist-btn" onclick="toggleWish(this)">🤍</button>
+          </div>
+          <div class="product-info">
+            <p class="product-name">شمسية كيتي الصيفية</p>
+            <div class="product-rating">
+              <span class="stars">⭐⭐⭐⭐⭐</span
+              ><span class="rating-txt">(٣٣)</span>
+            </div>
+            <div class="product-footer">
+              <div class="price-wrap">
+                <span class="product-price">٢٢ د.أ</span>
+              </div>
+              <button class="btn-add-sm" onclick="addToCart()">+ سلة</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="product-card reveal s8">
+          <div
+            class="product-img-wrap"
+            style="background: linear-gradient(135deg, #ffe4ed, #ffb3c6)"
+          >
+            <img
+              src="https://i.imgur.com/m6etCOY.jpeg"
+              alt="بوكس هدية كيتي"
+              class="product-img"
+            />
+            <div class="product-badge sale">خصم ١٥٪</div>
+            <button class="wishlist-btn" onclick="toggleWish(this)">🤍</button>
+          </div>
+          <div class="product-info">
+            <p class="product-name">حقيبة مستحضرات كيتي</p>
+            <div class="product-rating">
+              <span class="stars">⭐⭐⭐⭐</span
+              ><span class="rating-txt">(٩٨)</span>
+            </div>
+            <div class="product-footer">
+              <div class="price-wrap">
+                <span class="product-price">٣٨ د.أ</span>
+                <span class="product-old">٤٥ د.أ</span>
+              </div>
+              <button class="btn-add-sm" onclick="addToCart()">+ سلة</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ WHY US ══ -->
+    <section class="why-us section-pad-sm" id="why">
+      <div class="sec-header reveal">
+        <div class="sec-badge">💖 مميزاتنا</div>
+        <h2 class="sec-title">لماذا <span>كيتي لاند؟</span></h2>
+        <p class="sec-sub">نقدم لك أفضل تجربة تسوق وردية</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal s1">
+          <span class="feature-icon">🚚</span>
+          <h3 class="feature-title">توصيل سريع</h3>
+          <p class="feature-text">
+            لجميع مناطق الأردن خلال ١-٣ أيام عمل مع تتبع مباشر
+          </p>
+        </div>
+        <div class="feature-card reveal s2">
+          <span class="feature-icon">✅</span>
+          <h3 class="feature-title">جودة ١٠٠٪</h3>
+          <p class="feature-text">
+            منتجات أصيلة مع ضمان استرجاع خلال ٧ أيام بدون أسئلة
+          </p>
+        </div>
+        <div class="feature-card reveal s3">
+          <span class="feature-icon">💬</span>
+          <h3 class="feature-title">دعم دائم</h3>
+          <p class="feature-text">فريقنا متاح على واتساب لمساعدتك في أي وقت</p>
+        </div>
+        <div class="feature-card reveal s4">
+          <span class="feature-icon">🎁</span>
+          <h3 class="feature-title">تغليف هدايا</h3>
+          <p class="feature-text">تغليف وردي فاخر مجاني مع بطاقة تهنئة مخصصة</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ REVIEWS ══ -->
+    <section class="reviews" id="reviews">
+      <div class="sec-header reveal">
+        <div class="sec-badge">💬 آراء عميلاتنا</div>
+        <h2 class="sec-title">ماذا قالت <span>أميراتنا؟</span></h2>
+        <p class="sec-sub">أكثر من ٥٠٠٠ تقييم إيجابي</p>
+      </div>
+
+      <div class="reviews-carousel" id="revCarousel">
+        <div class="review-card">
+          <div class="review-top">
+            <div class="reviewer-avatar">👩‍🦱</div>
+            <div>
+              <p class="reviewer-name">سارة المحمود</p>
+              <p class="reviewer-date">١٥ أبريل ٢٠٢٥</p>
+            </div>
+          </div>
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+          <p class="review-text">
+            صراحة من أجمل تجارب التسوق اللي مريت فيها! البيجاما جودتها عالية
+            جداً والتغليف كان أحلى من اللي توقعته. رح أطلب مرة ثانية قريباً 💕
+          </p>
+          <span class="review-product">بيجاما هيلو كيتي الوردية</span>
+        </div>
+
+        <div class="review-card">
+          <div class="review-top">
+            <div class="reviewer-avatar">👩</div>
+            <div>
+              <p class="reviewer-name">ريم العبدالله</p>
+              <p class="reviewer-date">٢ مارس ٢٠٢٥</p>
+            </div>
+          </div>
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+          <p class="review-text">
+            طلبت بوكس هدية لصاحبتي ووصل بنفس اليوم! الشكل رائع والمحتوى أحلى من
+            الصور. التواصل مع الفريق سريع وودود جداً 🌸
+          </p>
+          <span class="review-product">بوكس هدية كيتي الفاخر</span>
+        </div>
+
+        <div class="review-card">
+          <div class="review-top">
+            <div class="reviewer-avatar">👩‍🦰</div>
+            <div>
+              <p class="reviewer-name">نور القحطاني</p>
+              <p class="reviewer-date">٨ مايو ٢٠٢٥</p>
+            </div>
+          </div>
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+          <p class="review-text">
+            الحقيبة أجمل من الصورة بكثير! القماش ناعم والتصميم خرافي. وصلت بأسرع
+            مما توقعت وبتغليف وردي رومانسي. ١٠/١٠ أنصح كل الصبايا 🎀
+          </p>
+          <span class="review-product">حقيبة كتف كيتي الفضية</span>
+        </div>
+      </div>
+
+      <div class="carousel-dots" id="dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+    </section>
+
+    <!-- ══ GALLERY ══ -->
+    <section class="gallery" id="gallery">
+      <div class="sec-header reveal">
+        <div class="sec-badge">📸 معرض الصور</div>
+        <h2 class="sec-title">تابعينا على <span>انستقرام</span></h2>
+        <p class="sec-sub">@kittyland.jo</p>
+      </div>
+
+      <div class="gallery-grid reveal">
+        <div class="gallery-item">
+          🐱
+          <div class="gallery-overlay">❤️</div>
+          <div class="ig-tag">@kittyland</div>
+        </div>
+        <div
+          class="gallery-item"
+          style="background: linear-gradient(135deg, #ffe4ed, #ffd6e0)"
+        >
+          🌙
+          <div class="gallery-overlay">❤️</div>
+        </div>
+        <div
+          class="gallery-item"
+          style="background: linear-gradient(135deg, #fff0f8, #ffe4ed)"
+        >
+          🎁
+          <div class="gallery-overlay">❤️</div>
+        </div>
+        <div
+          class="gallery-item"
+          style="background: linear-gradient(135deg, #ffd6e0, #ffb3c6)"
+        >
+          👜
+          <div class="gallery-overlay">❤️</div>
+        </div>
+        <div
+          class="gallery-item"
+          style="background: linear-gradient(135deg, #ffe4ed, #fff0f8)"
+        >
+          🎀
+          <div class="gallery-overlay">❤️</div>
+        </div>
+        <div
+          class="gallery-item"
+          style="background: linear-gradient(135deg, #ffb3c6, #ffe4ed)"
+        >
+          💄
+          <div class="gallery-overlay">❤️</div>
+        </div>
+        <div
+          class="gallery-item"
+          style="background: linear-gradient(135deg, #fff8f0, #ffe4ed)"
+        >
+          🐻
+          <div class="gallery-overlay">❤️</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ FINAL CTA ══ -->
+    <div class="cta-section reveal">
+      <h2 class="cta-title">ابدئي رحلتك الوردية معنا اليوم 🎀</h2>
+      <p class="cta-sub">
+        اشتري بأمان، واستلمي بسعادة.<br />كيتي لاند هنا دايماً لك يا أميرة 💕
+      </p>
+      <div class="cta-actions">
+        <a href="#products" class="btn-white">🛍️ تسوّقي الآن</a>
+        <a
+          href="https://wa.me/962790000000"
+          class="btn-wa"
+          target="_blank"
+          rel="noopener"
+        >
+          💬 اطلبي عبر واتساب
+        </a>
+      </div>
+    </div>
+
+    <!-- ══ FOOTER ══ -->
+    <footer>
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <div class="nav-logo-icon">🎀</div>
+          <span class="nav-logo-text" style="-webkit-text-fill-color: white"
+            >كيتي لاند</span
+          >
+        </div>
+        <p>
+          متجرك الوردي الأول في الأردن. نوفر أجمل منتجات هيلو كيتي وأرقى الهدايا
+          بجودة مضمونة وتوصيل سريع لكل المناطق.
+        </p>
+        <div class="footer-socials">
+          <a class="social-btn" href="#">📸</a>
+          <a class="social-btn" href="#">🐦</a>
+          <a
+            class="social-btn"
+            href="https://wa.me/962790000000"
+            target="_blank"
+            >💬</a
+          >
+          <a class="social-btn" href="#">📌</a>
+        </div>
+      </div>
+
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>روابط سريعة</h4>
+          <ul>
+            <li><a href="#categories">الفئات</a></li>
+            <li><a href="#products">المنتجات</a></li>
+            <li><a href="#why">لماذا نحن</a></li>
+            <li><a href="#reviews">التقييمات</a></li>
+            <li><a href="#gallery">معرض الصور</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>سياسات المتجر</h4>
+          <ul>
+            <li><a href="#">سياسة الاسترجاع</a></li>
+            <li><a href="#">الشحن والتوصيل</a></li>
+            <li><a href="#">الخصوصية</a></li>
+            <li><a href="#">الشروط والأحكام</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>تواصلي معنا</h4>
+          <ul>
+            <li><a href="https://wa.me/962790000000">واتساب: ٠٧٩٠٠٠٠٠٠٠</a></li>
+            <li><a href="mailto:hello@kittyland.jo">hello@kittyland.jo</a></li>
+            <li><a href="#">عمّان، الأردن 🇯🇴</a></li>
+            <li><a href="#">السبت – الخميس ٩ص–٩م</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        © ٢٠٢٥ كيتي لاند — جميع الحقوق محفوظة 🎀 صُنع بـ💕 في الأردن
+      </div>
+    </footer>
+
+    <script>
+      /* ── CART ── */
+      let cartCount = 3;
+      function addToCart() {
+        cartCount++;
+        const badge = document.getElementById("cartBadge");
+        badge.textContent = cartCount;
+        badge.style.animation = "none";
+        void badge.offsetWidth;
+        badge.style.animation = "pop .35s cubic-bezier(.36,.07,.19,.97)";
+        // Haptic feel via scale
+        const btn = document.getElementById("cartBtn");
+        btn.style.transform = "scale(1.25)";
+        setTimeout(() => (btn.style.transform = ""), 200);
+      }
+      function cartBounce() {
+        const btn = document.getElementById("cartBtn");
+        btn.style.transform = "scale(1.2)";
+        setTimeout(() => (btn.style.transform = ""), 180);
+      }
+
+      /* ── WISHLIST ── */
+      function toggleWish(btn) {
+        const isWished = btn.textContent.trim() === "❤️";
+        btn.textContent = isWished ? "🤍" : "❤️";
+        btn.style.transform = "scale(1.3)";
+        setTimeout(() => (btn.style.transform = ""), 200);
+      }
+
+      /* ── PILLS ── */
+      function filterPill(el) {
+        document
+          .querySelectorAll(".pill")
+          .forEach((p) => p.classList.remove("active"));
+        el.classList.add("active");
+      }
+      function filterCat(el) {
+        document
+          .querySelectorAll(".cat-chip")
+          .forEach((c) => c.classList.remove("active"));
+        el.classList.add("active");
+      }
+
+      /* ── DRAWER ── */
+      function openDrawer() {
+        document.getElementById("drawer").classList.add("open");
+        document.getElementById("overlay").classList.add("open");
+        document.getElementById("ham").classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+      function closeDrawer() {
+        document.getElementById("drawer").classList.remove("open");
+        document.getElementById("overlay").classList.remove("open");
+        document.getElementById("ham").classList.remove("open");
+        document.body.style.overflow = "";
+      }
+      function toggleDrawer() {
+        document.getElementById("drawer").classList.contains("open")
+          ? closeDrawer()
+          : openDrawer();
+      }
+
+      /* ── REVIEWS CAROUSEL DOTS ── */
+      const carousel = document.getElementById("revCarousel");
+      const dots = document.querySelectorAll(".dot");
+      let dotTimer;
+
+      function updateDots() {
+        const idx = Math.round(carousel.scrollLeft / carousel.offsetWidth);
+        dots.forEach((d, i) => d.classList.toggle("active", i === idx));
+      }
+      carousel.addEventListener(
+        "scroll",
+        () => {
+          clearTimeout(dotTimer);
+          dotTimer = setTimeout(updateDots, 80);
+        },
+        { passive: true },
+      );
+
+      /* ── REVEAL ON SCROLL ── */
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              revealObserver.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
+      );
+
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => revealObserver.observe(el));
+
+      /* ── BADGE ANIMATION ── */
+      const s = document.createElement("style");
+      s.textContent = `
+  @keyframes pop {
+    0%  { transform:scale(1); }
+    40% { transform:scale(1.55); }
+    70% { transform:scale(0.9); }
+    100%{ transform:scale(1); }
+  }
+  .cart-badge { animation-fill-mode:both; }
+`;
+      document.head.appendChild(s);
+
+      /* ── NAV SCROLL SHADOW ── */
+      const navEl = document.querySelector("nav");
+      window.addEventListener(
+        "scroll",
+        () => {
+          navEl.style.boxShadow =
+            window.scrollY > 10
+              ? "0 4px 20px rgba(232,84,122,0.18)"
+              : "0 2px 16px rgba(232,84,122,0.10)";
+        },
+        { passive: true },
+      );
+    </script>
+  </body>
+</html>
